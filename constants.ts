@@ -1,5 +1,5 @@
 
-import { PanelType, SolarPanelConfig } from './types';
+import { PanelType, SolarPanelConfig } from './types.ts';
 
 export const PANEL_CONFIGS: Record<PanelType, SolarPanelConfig> = {
   [PanelType.MONOCRYSTALLINE]: {

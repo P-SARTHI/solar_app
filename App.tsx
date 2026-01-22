@@ -1,10 +1,10 @@
 
 import React, { useState, useMemo } from 'react';
 import { Sun, Zap, Leaf, Info, Calculator as CalcIcon, ChevronRight, TrendingDown, HardHat, Landmark, MapPin } from 'lucide-react';
-import { CalculationInput, CalculationResult, PanelType, AIAdvice } from './types';
-import { PANEL_CONFIGS, INDIAN_STATES } from './constants';
-import { calculateSolarMetrics } from './services/solarCalculator';
-import { getAIAdvice } from './services/geminiService';
+import { CalculationInput, CalculationResult, PanelType, AIAdvice } from './types.ts';
+import { PANEL_CONFIGS, INDIAN_STATES } from './constants.ts';
+import { calculateSolarMetrics } from './services/solarCalculator.ts';
+import { getAIAdvice } from './services/geminiService.ts';
 import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
 
 const App: React.FC = () => {
@@ -23,14 +23,19 @@ const App: React.FC = () => {
 
   const handleCalculate = async () => {
     setLoading(true);
-    const metrics = calculateSolarMetrics(input);
-    setResults(metrics);
-    
-    const advice = await getAIAdvice(input, metrics);
-    setAiAdvice(advice);
-    
-    setIsCalculated(true);
-    setLoading(false);
+    try {
+      const metrics = calculateSolarMetrics(input);
+      setResults(metrics);
+      
+      const advice = await getAIAdvice(input, metrics);
+      setAiAdvice(advice);
+      
+      setIsCalculated(true);
+    } catch (error) {
+      console.error("Calculation failed:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const chartData = useMemo(() => {

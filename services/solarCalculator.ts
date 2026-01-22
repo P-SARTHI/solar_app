@@ -1,6 +1,6 @@
 
-import { CalculationInput, CalculationResult, PanelType } from '../types';
-import { PANEL_CONFIGS, STANDARD_PANEL_WATTAGE, SYSTEM_LOSS_FACTOR, LABOR_COST_PER_WATT } from '../constants';
+import { CalculationInput, CalculationResult, PanelType } from '../types.ts';
+import { PANEL_CONFIGS, STANDARD_PANEL_WATTAGE, SYSTEM_LOSS_FACTOR, LABOR_COST_PER_WATT } from '../constants.ts';
 
 export const calculateSolarMetrics = (input: CalculationInput): CalculationResult => {
   const { monthlyConsumption, sunHoursPerDay, electricityRate, state, selectedPanelType } = input;

@@ -1,9 +1,25 @@
 
 import { GoogleGenAI, Type } from "@google/genai";
-import { CalculationInput, CalculationResult, AIAdvice } from "../types";
+import { CalculationInput, CalculationResult, AIAdvice } from "../types.ts";
 
 export const getAIAdvice = async (input: CalculationInput, result: CalculationResult): Promise<AIAdvice> => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  // Use a fallback to prevent crash if process.env is missing on static hosts
+  const apiKey = typeof process !== 'undefined' && process.env.API_KEY ? process.env.API_KEY : '';
+  
+  if (!apiKey) {
+    console.warn("Gemini API Key missing. Returning fallback advice.");
+    return {
+      summary: "Parth solar solutions highly recommends solar for your location under the PM Surya Ghar scheme.",
+      benefits: [
+        "Eliminate up to 300 units of monthly billing",
+        "Fastest ROI with current Indian subsidies",
+        "Reliable energy during peak Indian summer"
+      ],
+      recommendations: "We recommend DCR panels for full subsidy eligibility and long-term durability in local weather."
+    };
+  }
+
+  const ai = new GoogleGenAI({ apiKey });
   
   const prompt = `As a solar energy consultant from "Parth solar solutions", analyze this installation for a customer in ${input.state}:
   Monthly Bill: ${input.monthlyConsumption} units
@@ -38,7 +54,7 @@ export const getAIAdvice = async (input: CalculationInput, result: CalculationRe
       }
     });
 
-    return JSON.parse(response.text);
+    return JSON.parse(response.text || "{}");
   } catch (error) {
     console.error("AI Advice generation failed", error);
     return {
