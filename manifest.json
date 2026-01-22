@@ -1,0 +1,18 @@
+
+{
+  "name": "Parth Solar Solutions",
+  "short_name": "Parth Solar",
+  "description": "Smart Solar ROI Calculator for Indian Homes",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#050505",
+  "theme_color": "#fbbf24",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3222/3222672.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

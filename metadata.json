@@ -1,0 +1,7 @@
+{
+  "name": "Parth solar solutions",
+  "description": "Expert solar energy calculator for Indian homes with PM Surya Ghar subsidy integration and AI insights.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
